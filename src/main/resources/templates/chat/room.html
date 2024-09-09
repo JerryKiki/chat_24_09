@@ -111,8 +111,20 @@
                     `<li>${message.authorName} : ${message.content}</li>`
                 );
         });
-        setTimeout(Chat__loadMore(), 300);
+        //setTimeout(Chat__loadMore(), 300); : 폴링방식으로 계속 찔러보게됨 ==> 무분별한 호출을 야기한다 ==> SSE방식으로 수정해보자!
     }
+
+    //sse 접속이야 라고 알려주는 것 ==> 연결을 물고 있게끔 함
+    //이 한줄은 그냥 규칙이다... sse로 처리하겠다는 선언
+    const sse = new EventSource("/sse/connect");
+
+    //정말 중요한 건 요 아래!
+    //언제 어디서든 서버를 통해 응답을 받을 수 있게끔 해줌
+    //이런 이벤트가 발생했어~ 하면 안쪽을 실행할 수 있도록함
+    //Like 무전기...
+    sse.addEventListener('chat__messageAdded', e => {
+        Chat__loadMore();
+    });
 
     //최초에 한번 불러오기
     Chat__loadMore();
