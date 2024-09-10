@@ -1,9 +1,5 @@
 package com.koreait.exam.chat_24_09;
 
-import ch.qos.logback.core.model.Model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
